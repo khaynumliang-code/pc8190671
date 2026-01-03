@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新金宝 - Personal</title>
+    <title>新金宝</title>
     <link rel="icon" type="image/jpeg" href="my_photo.jpg">
     <style>
         /* --- 基础布局 --- */
@@ -14,12 +14,8 @@
             font-family: 'PingFang SC', 'Microsoft YaHei', 'Pyidaungsu', sans-serif; color: white;
             background: #000; 
             overflow: hidden; position: relative;
-
-            /* 禁止全站拖拽和选中 */
             -webkit-user-drag: none;
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
 
@@ -51,69 +47,90 @@
             -webkit-text-fill-color: transparent; 
             font-weight: 900; 
             display: inline-block;
-            text-shadow: 0px 2px 2px rgba(0,0,0,0.3);
-            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
             animation: shine 2.5s linear infinite, livelyPulse 2s ease-in-out infinite;
         }
 
         @keyframes shine { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-        @keyframes livelyPulse { 0%, 100% { transform: scale(1); filter: brightness(1) } 50% { transform: scale(1.05); filter: brightness(1.2) } }
+        @keyframes livelyPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* 动画库 */
-        @keyframes elasticDrop {
-            0% { opacity: 0; transform: translateY(-500px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes elasticFlyLeft {
-            0% { opacity: 0; transform: translateX(-300px); }
-            100% { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes elasticFlyRight {
-            0% { opacity: 0; transform: translateX(300px); }
-            100% { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes elasticFlyUp {
-            0% { opacity: 0; transform: translateY(300px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        /* 入场动画 */
+        @keyframes elasticDrop { 0% { opacity: 0; transform: translateY(-500px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes elasticFlyLeft { 0% { opacity: 0; transform: translateX(-300px); } 100% { opacity: 1; transform: translateX(0); } }
+        @keyframes elasticFlyRight { 0% { opacity: 0; transform: translateX(300px); } 100% { opacity: 1; transform: translateX(0); } }
+        @keyframes elasticFlyUp { 0% { opacity: 0; transform: translateY(300px); } 100% { opacity: 1; transform: translateY(0); } }
 
         .header-group { text-align: center; margin-top: -80px; margin-bottom: 50px; position: relative; z-index: 10; }
         .brand-name { font-size: 4.5rem; letter-spacing: 10px; display: block; margin-bottom: 10px; }
         h1 { font-size: 2rem; letter-spacing: 5px; }
         
         .container { display: flex; gap: 40px; justify-content: center; align-items: center; position: relative; z-index: 10; flex-wrap: wrap; }
-        
-        .logo-link { 
-            text-decoration: none; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            transition: all 0.4s ease; 
-            position: relative; 
-        }
-
+        .logo-link { text-decoration: none; display: flex; flex-direction: column; align-items: center; transition: all 0.4s ease; position: relative; }
         .logo-link:hover { transform: scale(1.1); z-index: 50; }
-        .logo-link::before { content: "🎅"; position: absolute; top: -30px; left: -10px; font-size: 40px; transform: rotate(-15deg); z-index: 15; }
-        
-        .logo-img { 
-            width: 280px; height: 160px; object-fit: cover; display: block; border-radius: 15px; 
-            border: 3px solid rgba(255, 255, 255, 0.5); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-        }
-
+        .logo-img { width: 280px; height: 160px; object-fit: cover; display: block; border-radius: 15px; border: 3px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .logo-link:hover .logo-img { border-color: #ffd700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
 
-        /* 响应式适配 */
+        /* --- 左右挂件 --- */
+        .side-box { position: fixed; bottom: 35px; z-index: 100; text-align: center; }
+
+        /* 左侧下载：无发光，带下划线 */
+        .download-left {
+            left: 50px;
+            animation: elasticFlyLeft 1s ease-out both 0.8s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .download-text {
+            font-size: 28px;
+            font-weight: 900;
+            color: #40daf5; /* 您指定的颜色 */
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        /* 文字下方的行/横线 */
+        .text-line {
+            width: 100%;
+            height: 3px;
+            background-color: #40daf5;
+            display: block;
+            border-radius: 2px;
+        }
+
+        /* 右侧二维码：保留快速发光 */
+        .qr-right-box {
+            right: 30px;
+            animation: elasticFlyRight 1s ease-out both 0.8s;
+        }
+        .qr-img-style {
+            width: 120px;
+            height: 120px;
+            padding: 5px;
+            background: #fff;
+            border: 3px solid #40daf5;
+            border-radius: 10px;
+            animation: boxFastGlow 0.8s ease-in-out infinite alternate;
+        }
+        @keyframes boxFastGlow {
+            from { box-shadow: 0 0 5px #40daf5; }
+            to { box-shadow: 0 0 25px #40daf5, 0 0 10px rgba(64, 218, 245, 0.5); }
+        }
+
+        .side-label { margin-top: 10px; font-size: 16px; font-weight: bold; color: #40daf5; display: block; }
+
+        /* 响应式 */
         @media (max-width: 768px) {
             .brand-name { font-size: 3rem; }
-            .container { gap: 20px; }
             .logo-img { width: 220px; height: 130px; }
+            .download-text { font-size: 18px; }
+            .qr-img-style { width: 90px; height: 90px; }
+            .side-box { bottom: 20px; }
+            .download-left { left: 20px; }
+            .qr-right-box { right: 20px; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;">
     <div class="background-image"></div>
-
     <ul class="lightrope"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
     <canvas id="snow-canvas"></canvas>
 
@@ -123,17 +140,25 @@
     </div>
 
     <div class="container">
-        <a href="https://xinjinbao.vercel.app/" class="logo-link" style="animation: elasticFlyLeft 1s ease-out both 0.4s;">
+        <a href="https://pc.870213011.com/" class="logo-link" style="animation: elasticFlyLeft 1s ease-out both 0.4s;">
             <img src="myphoto1.jpg" alt="Member" class="logo-img">
         </a>
-        
         <a href="login2.html" class="logo-link" style="animation: elasticFlyUp 1s ease-out both 0.5s;">
             <img src="myphoto2.jpg" alt="Other" class="logo-img">
         </a>
-
-        <a href="https://grandjinbao.vercel.app/" class="logo-link" style="animation: elasticFlyRight 1s ease-out both 0.6s;">
+        <a href="https://www.870213011.xyz/?_login_0.SXLg" class="logo-link" style="animation: elasticFlyRight 1s ease-out both 0.6s;">
             <img src="myphoto.jpg" alt="Agent" class="logo-img">
         </a>
+    </div>
+
+    <a href="你的下载地址.html" class="side-box download-left">
+        <span class="download-text">下载APP</span>
+        <div class="text-line"></div>
+    </a>
+
+    <div class="side-box qr-right-box">
+        <img src="二维码.jpg" alt="QR Code" class="qr-img-style">
+        <span class="side-label">手机版网站扫码</span>
     </div>
 
     <script>
@@ -163,12 +188,8 @@
                 if (p.y > height) { particles[i] = { x: Math.random() * width, y: -10, r: p.r, v: p.v }; }
             }
         }
-        window.addEventListener('resize', init);
-        init();
-        function anim() { draw(); requestAnimationFrame(anim); }
-        anim();
+        window.addEventListener('resize', init); init();
+        function anim() { draw(); requestAnimationFrame(anim); } anim();
     </script>
 </body>
 </html>
-
-
